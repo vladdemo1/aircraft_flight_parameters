@@ -1,5 +1,7 @@
 """This file created for working with navigation data"""
 
+from datetime import timedelta
+
 # For example
 # 0GPGGA,060355.00,4950.4828,N,03638.5901,E,1,05,4.3,144.5,M,16.2,M,,*67
 # Where next elements
@@ -54,6 +56,52 @@ class Aircraft:
         local_attr.append(value_to_append)
         return None
 
+    @staticmethod
+    def get_list_with_float(list_with_str: list) -> list:
+        """
+        Get list with float elements from list with str's
+        """
+        return [float(element) for element in list_with_str]
+
+    def get_max_hight_value(self) -> float:
+        """
+        Get max value of height fly by list of message heights
+        """
+        return max(self.get_list_with_float(self._list_height))
+
+    def get_min_hight_value(self) -> float:
+        """
+        Get min value of height fly by list of message heights
+        """
+        return min(self.get_list_with_float(self._list_height))
+
+    @staticmethod
+    def parser_time(str_with_time: str) -> tuple:
+        hours = int(str_with_time[:2])
+        minutes = int(str_with_time[2:4])
+        seconds = float(str_with_time[4:])
+        return hours, minutes, seconds
+    
+    def get_all_time_fly(self):
+        """
+        Get summ of time in fly
+        """
+        time_start = self._list_time[0]
+        time_finish = self._list_time[-1]
+
+        tuple_start = self.parser_time(time_start)
+        tuple_finish = self.parser_time(time_finish)
+
+        start = timedelta(hours=tuple_start[0], minutes=tuple_start[1], seconds=tuple_start[2])
+        finish = timedelta(hours=tuple_finish[0], minutes=tuple_finish[1], seconds=tuple_finish[2])
+
+        time_in_fly = finish - start
+
+        return time_in_fly
+
 
 aircraft = Aircraft(message=MESSAGE)
-print(aircraft._list_height)
+
+# print(aircraft.get_max_hight_value())
+# print(aircraft.get_min_hight_value())
+aircraft.get_all_time_fly()
