@@ -21,5 +21,39 @@
 from message import MESSAGE
 
 
-for element in MESSAGE:
-    print(element)
+class Aircraft:
+
+    def __init__(self, message) -> None:
+        self._message = message
+        self._list_commands: list = []
+        self._list_time: list = []
+        self._list_latitude: list = []
+        self._latitude: str = ""
+        self._list_longtitude: list = []
+        self._longtitude: str = ""
+        self._list_height: list = []
+
+        self.search_data_for_lists()
+
+    def search_data_for_lists(self) -> None:
+        for element in self._message:
+            info = element.split(',')
+
+            self.local_append(self._list_commands, info[0])
+            self.local_append(self._list_time, info[1])
+            self.local_append(self._list_latitude, info[2])
+            self._latitude = info[3]
+            self.local_append(self._list_longtitude, info[4])
+            self._longtitude = info[5]
+            self.local_append(self._list_height, info[9])
+        return None
+
+
+    @staticmethod
+    def local_append(local_attr: list, value_to_append: str) -> None:
+        local_attr.append(value_to_append)
+        return None
+
+
+aircraft = Aircraft(message=MESSAGE)
+print(aircraft._list_height)
