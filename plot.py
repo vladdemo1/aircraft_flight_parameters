@@ -18,8 +18,8 @@ class Plot:
         self._aircraft = Aircraft(MESSAGE)
         self._list_times = [second for second in range(int(self._aircraft.get_all_time_fly().seconds))]
         self._list_distances_per_signal = self.get_next_distance()
-        self._list_speed_fly = self.get_list_fly_speed()
-        self._list_height_fly = self._aircraft._list_height[1:]
+        self._list_speed_fly = [round(speed * 3.6, 2) for speed in self.get_list_fly_speed()]
+        self._list_height_fly = [float(value) for value in self._aircraft._list_height[1:]] 
 
     
     def get_next_distance(self):
@@ -108,5 +108,14 @@ def base():
     show.show_distance_to_time()  # show plot about distance to time
 
 
+def get_lists_with_data():
+    plot = Plot()
+    print(f"List times - {plot._list_times}")
+    print(f"List distances - {plot._list_distances_per_signal}")
+    print(f"List speed fly - {plot._list_speed_fly}")
+    print(f"List height fly - {plot._list_height_fly}")
+
+
 if __name__ == "__main__":
     base()
+    get_lists_with_data()

@@ -65,7 +65,7 @@ class Aircraft:
 
 
     @staticmethod
-    def local_append(local_attr: list, value_to_append: str) -> None:
+    def local_append(local_attr: list, value_to_append) -> None:
         """
         Append value to current list
         """
@@ -225,11 +225,11 @@ def base():
 
     print(f"Сумарна довжина маршруту польоту: {round(aircraft.get_sum_flight_distance(), 2)} метрів.")
 
-    print(f"Середня швидкість польоту: {round(aircraft.get_middle_speed(), 2)} м/c.")
+    print(f"Середня швидкість польоту: {round(aircraft.get_middle_speed() * 3.6, 2)} км/год.")
 
-    print(f"Мінімальна швидкість польоту: {round(aircraft.get_min_max_speed_fly()['min'], 2)} м/c.")
+    print(f"Мінімальна швидкість польоту: {round(aircraft.get_min_max_speed_fly()['min'] * 3.6, 2)} км/год.")
 
-    print(f"Максимальна швидкість польоту: {round(aircraft.get_min_max_speed_fly()['max'], 2)} м/c.")
+    print(f"Максимальна швидкість польоту: {round(aircraft.get_min_max_speed_fly()['max'] * 3.6 , 2)} км/год.")
 
     print(f"Мінімальна висота польоту: {round(aircraft.get_min_hight_value(), 2)} метрів.")
 
